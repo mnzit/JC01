@@ -7,10 +7,6 @@ public class Main {
        command.initParameters(49, 2);
        double result = command.calculate();
        System.out.println(result);
-    }
-
-    
-
     }   
 
 }
