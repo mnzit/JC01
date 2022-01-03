@@ -1,9 +1,9 @@
-public class AddCommand extends MathCommand{
+public class MulCommand extends MathCommand{
 
     @Override
     public double calculate() {
         // TODO Auto-generated method stub
-        return Math.pow(i,j);
+        return i*j;
     }
     
 }
