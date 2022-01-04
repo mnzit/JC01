@@ -1,7 +1,17 @@
 # JC01
 
+> Begin with making run.sh executable
+
 ```
-git clone https://github.com/mnzit/JSC01.git
+git clone https://github.com/mnzit/JC01.git
+cd JC01
+chmod +x run.sh
+./run.sh
+```
+
+## Things to learn
+```
+
 git clone <repo_name>
 git add . // for tracking the file
 git commit -m '<add your commit message>'
