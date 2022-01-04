@@ -6,7 +6,7 @@ public class Cricketball implements Playable {
 
     @Override
     public void play() {
-        System.out.println("Playing Football !!");    
+        System.out.println("Playing Football !!");
     }
-    
+
 }

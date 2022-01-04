@@ -12,8 +12,10 @@ public class PlayableFactory {
         switch(type){
             case "football":
             playable = new Football();
+            break;
             case "basketball":
             playable = new Basketball();
+            break;
         }
 
         return playable;
