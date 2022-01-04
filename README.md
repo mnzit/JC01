@@ -16,7 +16,7 @@ chmod +x run.sh
 ```
 
 ## Things to learn
-```bash
+```shell
 git clone <repo_name>
 git add .
 git commit -m '<add your commit message>'
