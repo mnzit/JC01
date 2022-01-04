@@ -36,5 +36,7 @@ javac src/com/ggic/jb01/Main.java -sourcepath src -d build/classes
 java -cp build/classes com.ggic.jb01.Main
 ```
 
-[![](https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false)](https://github.com/mnzit/JC01/graphs/contributors)
+<a href="https://github.com/mnzit/JC01/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mnzit/JC01" />
+</a>
 
