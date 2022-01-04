@@ -16,7 +16,7 @@ chmod +x run.sh
 ```
 
 ## Things to learn
-```
+```bash
 
 git clone <repo_name>
 git add . // for tracking the file
