@@ -2,16 +2,16 @@
 
 > How to run the program
 
-```
+```shell
 git clone https://github.com/mnzit/JC01.git
 ```
-```
+```shell
 cd JC01
 ```
-```
+```shell
 chmod +x run.sh
 ```
-```
+```shell
 ./run.sh
 ```
 
@@ -26,12 +26,12 @@ git push -u origin <branch_name> // if you havent pushed the branch to the remot
 git push -u origin/master //if their isnt origin yet
 ```
 
-```
+```shell
 javac <path_to_main_class> -sourcepath <source_code_base_path> -d <classes_generation_path>
 java -cp <classes_generation_path> <package_location_to_main_class>
 ```
 Example: 
-```
+```shell
 javac src/com/ggic/jb01/Main.java -sourcepath src -d build/classes
 java -cp build/classes com.ggic.jb01.Main
 ```
