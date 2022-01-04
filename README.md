@@ -4,8 +4,14 @@
 
 ```
 git clone https://github.com/mnzit/JC01.git
+```
+```
 cd JC01
+```
+```
 chmod +x run.sh
+```
+```
 ./run.sh
 ```
 
