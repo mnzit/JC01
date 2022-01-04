@@ -1,6 +1,6 @@
 # JC01
 
-> Begin with making run.sh executable
+> How to run the program
 
 ```
 git clone https://github.com/mnzit/JC01.git
