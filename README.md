@@ -17,13 +17,12 @@ chmod +x run.sh
 
 ## Things to learn
 ```bash
-
 git clone <repo_name>
-git add . // for tracking the file
+git add .
 git commit -m '<add your commit message>'
-git push // if you have pushed the branch already in remote
-git push -u origin <branch_name> // if you havent pushed the branch to the remote yet
-git push -u origin/master //if their isnt origin yet
+git push
+git push -u origin <branch_name>
+git push -u origin/master
 ```
 
 ```shell
