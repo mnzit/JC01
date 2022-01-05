@@ -7,11 +7,20 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String args[]){
+        Person person = Person
+                            .create()
+                            .name("Aakash")
+                            .contactNo("9808546678")
+                            .address("KTM");
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("What do you want to play: ");
-        String input = scanner.nextLine();
-        Playable playable = PlayableFactory.produce(input);
-        playable.play();
+      System.out.println(person);
+    }
+
+    public static void call(){
+        Playable playable = PlayableFactory.produceMi("guitar");
+        System.out.println(playable);
+        if(playable != null){
+            playable.play();
+        }
     }
 }
