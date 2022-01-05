@@ -1,4 +1,4 @@
-public class Ufc implements playable {
+public class Ufc implements Playable {
 
         @Override
         public void play() {
