@@ -1,6 +1,6 @@
 package com.ggic.jb01;
 
-public class CustomArrayList<T> implements CustomList<T> {
+public class CustomArrayList<T> implements CustomList<T>{
 
     private Object[] elements = new Object[0];
 
