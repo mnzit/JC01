@@ -1,26 +1,24 @@
 package com.ggic.jb01;
 
-import com.ggic.jb01.factory.PlayableFactory;
-
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
+    // Ctrl+Alt+L format code
+    public static void main(String[] args) {
 
-    public static void main(String args[]){
-        Person person = Person
-                            .create()
-                            .name("Aakash")
-                            .contactNo("9808546678")
-                            .address("KTM");
+        long startTime = System.nanoTime();
 
-      System.out.println(person);
-    }
+        List<Integer> numbers = new LinkedList<>();
+        numbers.add(1);
+        long estimatedTime = System.nanoTime() - startTime;
+        System.out.println("linkedlist: "+estimatedTime);
+        startTime = System.nanoTime();
+        List<Integer> numbers1 = new ArrayList<>();
+        numbers1.add(1);
+        estimatedTime = System.nanoTime() - startTime;
+        System.out.println("arraylist: "+estimatedTime);
 
-    public static void call(){
-        Playable playable = PlayableFactory.produceMi("guitar");
-        System.out.println(playable);
-        if(playable != null){
-            playable.play();
-        }
     }
 }
