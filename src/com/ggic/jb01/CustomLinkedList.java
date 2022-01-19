@@ -55,17 +55,20 @@ public class CustomLinkedList<T> implements CustomList<T>{
         }
 
         public void add(T element){
-            Node<T> node = new Node<>();
+
             if(curr == null){
                 data = element;
-                start = node;
+                start = this;
+                curr = this;
+                end = this;
             }else{
+                Node<T> node = new Node<>();
                 node.setData(element);
                 curr.setNext(node);
                 node.setPrev(curr);
+                curr = node;
+                end = node;
             }
-            curr = node;
-            end = node;
         }
     }
 }
