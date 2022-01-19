@@ -1,14 +1,20 @@
 package com.ggic.jb01;
 
+import java.util.Date;
+
 public class Main {
 
     public static void main(String[] args) {
-    MathCommand mathCommand =  MathCommandFactory.getCommand("-");
 
-        System.out.println( mathCommand.calculate(1D,2D));
+        Runnable runnable = () -> System.out.println("Thread name: " + Thread.currentThread().getName()+ " worked at: "+new Date().getTime());
 
-    MathContext mathContext = new MathContext(MathCommandFactory.getCommand("-"));
-        System.out.println( mathContext.calculate(1D,2D));
+        for(int i = 1;i<=10;i++ ) {
+            Thread thread = new Thread(runnable,"worker-" + i);
+            System.out.println("Thread name: worker-"+i+ " created at: "+new Date().getTime());
+            thread.start();
+        }
+
+
     }
 
 }
