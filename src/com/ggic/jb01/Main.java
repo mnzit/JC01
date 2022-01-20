@@ -3,50 +3,32 @@ package com.ggic.jb01;
 public class Main {
 
     public static void main(String[] args) {
-//        Resource resource = new Resource();
-//        final Thread incThread = new Thread(() -> {
-//            resource.increment();
-//        });
-//
-//        final Thread decThread = new Thread(() -> {
-//            resource.decrement();
-//        });
-//
-//        incThread.start();
-//        decThread.start();
-//
-//        try {
-//            incThread.join();
-//            decThread.join();
-//            System.out.println(resource.getValue());
-//        }catch (Exception ex){
-//
-//        }
+        // Shared Resource
+        Resource resource = new Resource();
 
-        System.out.println("Program has started");
-        Thread thread1 = new Thread(() -> {
-            System.out.println("The Thread1 is printing something");
-            try {
-            Thread.sleep(1000);
-            }catch (Exception ex){}
-        });
-        Thread thread2 = new Thread(() -> System.out.println("The Thread2 is printing something"));
-        Thread thread3 = new Thread(() -> System.out.println("The Thread3 is printing something"));
+        System.out.println("Before Multithreading in Resource: " + resource.getValue());
 
-        // run -> sync
-        // start -> async
+        Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
+            for (int i = 1; i <= 10000; i++) {
+                r.increment();
+            }
+        }, resource), "INCREMENTOR");
 
-        thread1.run();
-        thread2.run();
-        thread3.run();
-        //                                         -> terminated
-        //                                         -> blocked
-        // main thread new -> runnable -> running  -> waiting -> starvation
+        Thread decrementer = new Thread(new ResourceProcessorWrapper(r -> {
+            for (int i = 1; i <= 10000; i++) {
+                r.decrement();
+            }
+        }, resource), "DECREMENTOR");
+
+        incrementor.start();
+        decrementer.start();
+
         try {
-//            thread1.join(); // main waiting
-//            thread2.join();
-//            thread3.join();
-        }catch (Exception ex){}
-        System.out.println("Program has ended");
+            incrementor.join();
+            decrementer.join();
+        } catch (Exception ex) {
+            System.out.println("Exception : " + ex.getMessage());
+        }
+        System.out.println("After Multithreading in Resource: " + resource.getValue());
     }
 }
