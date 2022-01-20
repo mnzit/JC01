@@ -12,8 +12,8 @@ public class Main {
 
         System.out.println("Before Multithreading in Resource: " + resource.getValue());
 
-        List<Thread> incrementers = createIncrementers(100, resource);
-        List<Thread> decrementers = createDecrementers(100, resource);
+        List<Thread> incrementers = createIncrementers(10, resource);
+        List<Thread> decrementers = createDecrementers(10, resource);
 
         List<Thread> processors = new ArrayList<>();
         processors.addAll(incrementers);
@@ -33,7 +33,7 @@ public class Main {
         List<Thread> incrementers = new ArrayList<>();
         for (int j = 1; j <= count; j++) {
             Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= count; i++) {
                     r.increment();
                 }
             }, resource), "[INCREMENTOR]-" + j);
@@ -46,7 +46,7 @@ public class Main {
         List<Thread> decrementers = new ArrayList<>();
         for (int j = 1; j <= count; j++) {
             Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= count; i++) {
                     r.decrement();
                 }
             }, resource), "[DECREMENTER]-" + j);
