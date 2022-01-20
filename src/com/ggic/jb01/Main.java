@@ -1,5 +1,9 @@
 package com.ggic.jb01;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -8,27 +12,46 @@ public class Main {
 
         System.out.println("Before Multithreading in Resource: " + resource.getValue());
 
-        Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
-            for (int i = 1; i <= 10000; i++) {
-                r.increment();
-            }
-        }, resource), "INCREMENTOR");
+        List<Thread> incrementers = createIncrementers(100, resource);
+        List<Thread> decrementers = createDecrementers(100, resource);
 
-        Thread decrementer = new Thread(new ResourceProcessorWrapper(r -> {
-            for (int i = 1; i <= 10000; i++) {
-                r.decrement();
-            }
-        }, resource), "DECREMENTOR");
+        List<Thread> processors = new ArrayList<>();
+        processors.addAll(incrementers);
+        processors.addAll(decrementers);
 
-        incrementor.start();
-        decrementer.start();
+        Collections.shuffle(processors);
 
+        processors.parallelStream().forEach(Thread::start);
         try {
-            incrementor.join();
-            decrementer.join();
+            Thread.sleep(5000);
         } catch (Exception ex) {
-            System.out.println("Exception : " + ex.getMessage());
         }
         System.out.println("After Multithreading in Resource: " + resource.getValue());
+    }
+
+    public static List<Thread> createIncrementers(int count, Resource resource) {
+        List<Thread> incrementers = new ArrayList<>();
+        for (int j = 1; j <= count; j++) {
+            Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
+                for (int i = 1; i <= 10; i++) {
+                    r.increment();
+                }
+            }, resource), "[INCREMENTOR]-" + j);
+            incrementers.add(incrementor);
+        }
+        return incrementers;
+    }
+
+    public static List<Thread> createDecrementers(int count, Resource resource) {
+        List<Thread> decrementers = new ArrayList<>();
+        for (int j = 1; j <= count; j++) {
+            Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
+                for (int i = 1; i <= 10; i++) {
+                    r.decrement();
+                }
+            }, resource), "[DECREMENTER]-" + j);
+            decrementers.add(incrementor);
+        }
+        return decrementers;
     }
 }

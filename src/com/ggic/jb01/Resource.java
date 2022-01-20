@@ -11,9 +11,9 @@ public class Resource {
          * This synchronized is locking based in the lock instance, so when the lock object is locked by one thread other thread cannot lock it until this thread finishes its work
          */
         synchronized (lock) {
-//            System.out.println("[" + Thread.currentThread().getName() + "] before incrementing = " + value);
+            System.out.println("[" + Thread.currentThread().getName() + "] before incrementing = " + value);
             value++;
-//            System.out.println("[" + Thread.currentThread().getName() + "] after incrementing = " + value);
+            System.out.println("[" + Thread.currentThread().getName() + "] after incrementing = " + value);
         }
     }
 
@@ -22,9 +22,9 @@ public class Resource {
          * This synchronized is locking based in the lock instance, so when the lock object is locked by one thread other thread cannot lock it until this thread finishes its work
          */
         synchronized (lock) {
-//            System.out.println("[" + Thread.currentThread().getName() + "] before decrementing = " + value);
+            System.out.println("[" + Thread.currentThread().getName() + "] before decrementing = " + value);
             value--;
-//            System.out.println("[" + Thread.currentThread().getName() + "] after decrementing = " + value);
+            System.out.println("[" + Thread.currentThread().getName() + "] after decrementing = " + value);
         }
     }
 
