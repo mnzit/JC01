@@ -3,6 +3,8 @@ package com.ggic.jb01;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -10,10 +12,8 @@ public class Main {
         // Shared Resource
         Resource resource = new Resource();
 
-        System.out.println("Before Multithreading in Resource: " + resource.getValue());
-
-        List<Thread> incrementers = createIncrementers(10, resource);
-        List<Thread> decrementers = createDecrementers(10, resource);
+        List<Thread> incrementers = createIncrementers(1000, resource);
+        List<Thread> decrementers = createDecrementers(1000, resource);
 
         List<Thread> processors = new ArrayList<>();
         processors.addAll(incrementers);
@@ -21,37 +21,24 @@ public class Main {
 
         Collections.shuffle(processors);
 
-        processors.parallelStream().forEach(Thread::start);
-        try {
-            Thread.sleep(5000);
-        } catch (Exception ex) {
-        }
-        System.out.println("After Multithreading in Resource: " + resource.getValue());
+        processors
+                .parallelStream()
+                .forEach(Thread::start);
     }
 
     public static List<Thread> createIncrementers(int count, Resource resource) {
-        List<Thread> incrementers = new ArrayList<>();
-        for (int j = 1; j <= count; j++) {
-            Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
-                for (int i = 1; i <= count; i++) {
-                    r.increment();
-                }
-            }, resource), "[INCREMENTOR]-" + j);
-            incrementers.add(incrementor);
-        }
-        return incrementers;
+        Runnable incrementTask = new ResourceProcessorWrapper(r -> IntStream.range(1, count).forEach(i -> r.increment()), resource);
+        return IntStream
+                .range(1, count)
+                .mapToObj((i) -> new Thread(incrementTask, "[INCREMENTER]-" + i))
+                .collect(Collectors.toList());
     }
 
     public static List<Thread> createDecrementers(int count, Resource resource) {
-        List<Thread> decrementers = new ArrayList<>();
-        for (int j = 1; j <= count; j++) {
-            Thread incrementor = new Thread(new ResourceProcessorWrapper(r -> {
-                for (int i = 1; i <= count; i++) {
-                    r.decrement();
-                }
-            }, resource), "[DECREMENTER]-" + j);
-            decrementers.add(incrementor);
-        }
-        return decrementers;
+        Runnable decrementTask = new ResourceProcessorWrapper(r -> IntStream.range(1, count).forEach(i -> r.decrement()), resource);
+        return IntStream
+                .range(1, count)
+                .mapToObj((i) -> new Thread(decrementTask, "[DECREMENTER]-" + i))
+                .collect(Collectors.toList());
     }
 }
