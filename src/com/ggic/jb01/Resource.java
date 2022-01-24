@@ -3,32 +3,38 @@ package com.ggic.jb01;
 public class Resource {
 
     private Integer value = 1;
-    private final Object lock = new Object();
+    private Object object = new Object();
 
-    public void increment() {
-
-        /**
-         * This synchronized is locking based in the lock instance, so when the lock object is locked by one thread other thread cannot lock it until this thread finishes its work
-         */
-        synchronized (lock) {
-            System.out.println(Thread.currentThread().getName() + " before incrementing = " + value);
-            value++;
-            System.out.println(Thread.currentThread().getName() + " after incrementing = " + value);
-        }
+    public Resource(Integer value) {
+        this.value = value;
     }
 
-    public void decrement() {
-        /**
-         * This synchronized is locking based in the lock instance, so when the lock object is locked by one thread other thread cannot lock it until this thread finishes its work
-         */
-        synchronized (lock) {
-            System.out.println(Thread.currentThread().getName() + " before decrementing = " + value);
-            value--;
-            System.out.println(Thread.currentThread().getName() + " after decrementing = " + value);
+    // incrementor
+    public void produce() {
+        // Lock the object
+        synchronized (object) {
+            System.out.println(object + " is locked by " + Thread.currentThread().getName()+ " value: "+ value);
+            value++; // value = value - 1; // Read -> Write
+            System.out.println(object + " is going to be unlocked by " + Thread.currentThread().getName()+ " value: "+ value);
         }
+        // unlock the object
     }
 
-    public Integer getValue() {
-        return value;
+    // decrementor
+    public void consume() {
+        // Lock the object
+        synchronized (object) {
+            System.out.println(object + " is locked by " + Thread.currentThread().getName()+ " value: "+ value);
+            value--; // value = value + 1; // Read -> Write
+            System.out.println(object + " is going to be unlocked by " + Thread.currentThread().getName()+ " value: "+ value);
+        }
+        // unlock the object
+    }
+
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "value=" + value +
+                '}';
     }
 }
