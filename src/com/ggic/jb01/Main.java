@@ -1,6 +1,7 @@
 package com.ggic.jb01;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -9,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         // target
-        Resource resource = new Resource(1); // synchronous
+        Resource resource = new Resource(new AtomicInteger(1)); // synchronous
 
         System.out.println(resource); // 1 // sync
 
@@ -25,7 +26,7 @@ public class Main {
                 .forEach(Thread::start);
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (Exception ex) {
             System.out.println("Ex: " + ex.getMessage());
         }
@@ -33,9 +34,5 @@ public class Main {
 
         System.out.println(resource); // 1 // sync
 
-        // Incrementor Thread Read: 1
-        // Decrementor Thread Read: 1
-        // Decrementor Thread Write: 1-1 = 0
-        // Incrementor Thread Write: 1+1 = 2
     }
 }
