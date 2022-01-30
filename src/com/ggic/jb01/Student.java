@@ -1,6 +1,8 @@
 package com.ggic.jb01;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
 
     private Long id;
     private String name;
