@@ -1,35 +1,18 @@
 package com.ggic.jb01;
 
-import java.io.*;
+import com.ggic.jb01.controller.StudentController;
+import com.ggic.jb01.enums.Action;
+
+import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
-        // writeObject();
-        readObject();
-    }
-
-    public static void readObject() {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File("student.obj"));
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            Student student = (Student) objectInputStream.readObject();
-            System.out.println(student);
-        } catch (Exception exception) {
-            System.out.println("Exception: " + exception);
+        StudentController studentController = new StudentController();
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter action you want to do with student");
+            studentController.process(Action.valueOf(scanner.next()));
         }
-    }
 
-    public static void writeObject() {
-        Student student = new Student(1L, "Jabir", true);
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File("student.obj"));
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(student);
-            objectOutputStream.close();
-            fileOutputStream.close();
-        } catch (Exception exception) {
-            System.out.println("Exception: " + exception);
-        }
     }
 }
